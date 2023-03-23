@@ -1,0 +1,16 @@
+.product-card-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.card {
+    margin: 12px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    height: 250px;
+    width: 190px;
+}
+
+.card-price-tag {
+    margin-bottom: 0;
+}

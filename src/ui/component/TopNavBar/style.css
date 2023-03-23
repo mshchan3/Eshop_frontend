@@ -1,0 +1,23 @@
+#navbar-box {
+    padding: 24px 0;
+    border-bottom: darkgreen solid 1px;
+
+}
+
+#logo {
+    width: 125px;
+    height: 25px;
+}
+
+.login-box {
+    justify-content: flex-end;
+    align-items: flex-end;
+    color: darkgreen;
+}
+
+.me-auto.navbar-nav {
+    margin-left: 32px;
+    gap: 24px;
+    font-size: large;
+    /*font-weight: bold;*/
+}

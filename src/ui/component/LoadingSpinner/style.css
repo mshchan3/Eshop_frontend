@@ -1,0 +1,15 @@
+.loading-page-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100vw;
+}
+
+.spinner-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
