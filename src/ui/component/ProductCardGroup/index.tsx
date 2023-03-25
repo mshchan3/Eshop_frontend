@@ -7,19 +7,30 @@ import {ProductDataHasStock} from "../../../data/ProductDataHasStock";
 
 type Props = {
     productDataList: ProductDataHasStock[] | undefined,
-    searchProductName: string
+    searchProductName: string,
+    searchCategory: string | undefined
 }
 
 export default function ProductCardGroup(props: Props) {
     let renderProductCardGroup = () => {
         if (props.productDataList === undefined) {
             return <LoadingSpinner/>
-        } else {
+        } else if (props.searchCategory === undefined) {
+            return (
+                props.productDataList?.map((value) => {
+                    if (value.name.toLowerCase().includes(props.searchProductName.toLowerCase())) {
+                        return <ProductCard productData={value} key={value.pid}/>
+                    }
+                })
+            )
+        } else if (props.searchCategory) {
             return (
             props.productDataList?.map((value) => {
-                if (value.name.toLowerCase().includes(props.searchProductName.toLowerCase()))
-                    return<ProductCard productData={value} key={value.pid}/>
-                })
+                console.log(value.category === props.searchCategory)
+                if (value.category === props.searchCategory) {
+                    return <ProductCard productData={value} key={value.pid}/>
+                }
+            })
             )
         }
     }

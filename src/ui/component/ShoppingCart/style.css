@@ -1,0 +1,14 @@
+.cart-items {
+    width: 60%;
+}
+
+.order-summary {
+    width: 40%;
+}
+
+
+
+
+.cart-items-header {
+    display: flex;
+}

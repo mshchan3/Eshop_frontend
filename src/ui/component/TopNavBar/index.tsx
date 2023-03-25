@@ -4,24 +4,47 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './style.css'
 import {Button, Form} from "react-bootstrap";
-import React, {FormEvent, useRef} from "react";
+import React, {FormEvent, SyntheticEvent, useContext, useRef, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import {regular, solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 import {Link, useNavigate} from "react-router-dom";
-
-type Props = {
-    setSearchProductName: (searchProductName:string) => void;
-}
+import {userContext} from "../../../App";
+import FirebaseAuthService from "../../../authService/FirebaseAuthService";
 
 
-export default function TopNavBar(props:Props) {
+export default function TopNavBar() {
+    const user = useContext(userContext)
     const navigate = useNavigate();
     const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
         const form = event.currentTarget as HTMLFormElement;
         const formData = new FormData(form);
-        props.setSearchProductName(formData.get("search-product") as string);
+        const targetValue = formData.get("search-product") as string;
+        navigate(`/search/${targetValue}`)
     }
+
+    const handleSelect = (selectedKey: string | null) => {
+        navigate(`/search-category/${selectedKey}`)
+    }
+
+    const renderLoginPannel = () => {
+        if (user) {
+            return (<div>
+                    <p>{user.email}</p>
+                    <Button variant={"outline-success"}
+                            onClick={FirebaseAuthService.handleSignOut}>Logout</Button>
+                </div>
+            )
+        } else {
+            return (
+                <Link to="/login">
+                    <Button variant={"outline-success"}>Login</Button>
+                </Link>
+            )
+        }
+    }
+
+
     return (
         <Navbar bg="light" expand="lg" id={"navbar-box"} sticky="top">
             <Container>
@@ -30,39 +53,47 @@ export default function TopNavBar(props:Props) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Browse" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Another action
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider/>
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
+                        <Nav.Link href="/">Home</Nav.Link>
+                        <NavDropdown title="Category" id="basic-nav-dropdown" onSelect={handleSelect}>
+                            <NavDropdown.Item eventKey="Trainers">Trainers</NavDropdown.Item>
+                            <NavDropdown.Item eventKey="Basketball Shoes">Basketball Shoes</NavDropdown.Item>
+                            <NavDropdown.Item eventKey="Slide">Slide</NavDropdown.Item>
+                            {/*<NavDropdown.Divider/>*/}
+                            {/*<NavDropdown.Item href="#action/3.4">*/}
+                            {/*    Separated link*/}
+                            {/*</NavDropdown.Item>*/}
                         </NavDropdown>
+                        <Nav.Link href="#link">About Us</Nav.Link>
                         <Nav.Link href="">News</Nav.Link>
                         <Nav.Link href="">Help</Nav.Link>
-                        <Form className="d-flex" onSubmit={(event) => {handleSubmit(event)}}>
+                        <Form className="d-flex" style={{width: "30vw"}}
+                              onSubmit={(event) => {
+                                  handleSubmit(event)
+                              }}>
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
                                 className="me-2"
                                 aria-label="Search"
                                 name="search-product"
+                                size="sm"
                             />
                             <Button type="submit" variant="outline-success">
-                                <FontAwesomeIcon icon={solid("magnifying-glass")} style={{color: "#065700"}} />
+                                <FontAwesomeIcon icon={solid("magnifying-glass")}
+                                                 style={{color: "#1f5129"}}/>
                             </Button>
                         </Form>
                     </Nav>
                 </Navbar.Collapse>
-                <div className={"login-box"}>
-                    <Link to="/login">
-                    <Button variant={"outline-success"}>Login</Button>
-                    </Link>
+                <Link to="/shopping-cart">
+                    <Button className="me-2" variant="outline-success">
+                        <FontAwesomeIcon icon={solid("cart-shopping")} style={{color: "#1f5129",}}/>
+                    </Button>
+                </Link>
+                <div className={"login-box"} style={{color: "#1f5129"}}>
+                    {
+                        renderLoginPannel()
+                    }
                 </div>
             </Container>
         </Navbar>

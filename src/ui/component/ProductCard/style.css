@@ -1,0 +1,21 @@
+
+.card {
+    margin: 12px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    height: 320px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card a{
+    display: flex;
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-price-tag {
+    margin-bottom: 0;
+}

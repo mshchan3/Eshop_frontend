@@ -5,7 +5,7 @@ import './style.css'
 export default function ErrorPage() {
     return (
         <div>
-            {/*<TopNavBar/>*/}
+            <TopNavBar/>
             <div className={"error-box"}>
             <h1>Oops! We can't find the page you are looking for.</h1>
             <p>Here are some helpful links instead:</p>

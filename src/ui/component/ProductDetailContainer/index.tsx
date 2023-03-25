@@ -28,7 +28,7 @@ export default function ProductDetailContainer(props: Props) {
         <Container>
             <div className={"product-box"}>
                 <div className={"product-photo-box"}>
-                    <img className={"product-photo"} src={dunk}/>
+                    <img className={"product-photo"} src={props.productData.image_url}/>
                 </div>
                 <div className={"product-detail-box"}>
                     <div className={"product-name"}>

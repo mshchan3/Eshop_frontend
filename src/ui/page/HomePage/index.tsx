@@ -1,13 +1,12 @@
 import TopNavBar from "../../component/TopNavBar";
 import ProductCardGroup from "../../component/ProductCardGroup";
 import {useEffect, useState} from "react";
-import {ProductData} from "../../../data/ProductData";
 import {ProductApi} from "../../../api/ProductApi";
 import './style.css'
-import {useParams} from "react-router-dom";
 import {ProductDataHasStock} from "../../../data/ProductDataHasStock";
+import HomePageCarousel from "../../component/HomePageCarousel";
 
-export default function ProductListingPage() {
+export default function HomePage() {
     const [productDataList, setProductData] = useState<ProductDataHasStock[]|undefined>(undefined);
     const [searchProductName, setSearchProductName] = useState("");
 
@@ -23,7 +22,8 @@ export default function ProductListingPage() {
 
 
     return(<div>
-        <TopNavBar setSearchProductName={setSearchProductName}/>
-        <ProductCardGroup productDataList={productDataList} searchProductName={searchProductName}/>
+        <TopNavBar/>
+        <HomePageCarousel/>
+        <ProductCardGroup productDataList={productDataList} searchProductName={searchProductName} searchCategory={undefined}/>
     </div>)
 }

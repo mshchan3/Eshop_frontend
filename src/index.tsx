@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FirebaseAuthService from "./authService/FirebaseAuthService";
 
+
+FirebaseAuthService.serviceInit();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+
     <App />
 );
 
