@@ -32,13 +32,14 @@ export default function TopNavBar() {
             return (<div>
                     <p>{user.email}</p>
                     <Button variant={"outline-success"}
-                            onClick={FirebaseAuthService.handleSignOut}>Logout</Button>
+                            onClick={FirebaseAuthService.handleSignOut}
+                            style={{borderRadius: 0}}>Logout</Button>
                 </div>
             )
         } else {
             return (
                 <Link to="/login">
-                    <Button variant={"outline-success"}>Login</Button>
+                    <Button variant={"outline-success"} style={{ borderRadius: 0}}>Login</Button>
                 </Link>
             )
         }
@@ -46,7 +47,7 @@ export default function TopNavBar() {
 
 
     return (
-        <Navbar bg="light" expand="lg" id={"navbar-box"} sticky="top">
+        <Navbar bg="white" expand="lg" id={"navbar-box"} sticky="top">
             <Container>
                 <a href={"http://localhost:3000/"}><img
                     src="https://live.staticflickr.com/65535/52763649100_2c6c38fa2b_b.jpg" id={"logo"}/></a>
@@ -73,12 +74,12 @@ export default function TopNavBar() {
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
-                                className="me-2"
                                 aria-label="Search"
                                 name="search-product"
                                 size="sm"
+                                style={{borderRadius: 0}}
                             />
-                            <Button type="submit" variant="outline-success">
+                            <Button type="submit" variant="outline-success" style={{borderRadius: 0}}>
                                 <FontAwesomeIcon icon={solid("magnifying-glass")}
                                                  style={{color: "#1f5129"}}/>
                             </Button>
@@ -86,7 +87,7 @@ export default function TopNavBar() {
                     </Nav>
                 </Navbar.Collapse>
                 <Link to="/shopping-cart">
-                    <Button className="me-2" variant="outline-success">
+                    <Button className="me-2" variant="outline-success" style={{border: "white", borderRadius: 0}}>
                         <FontAwesomeIcon icon={solid("cart-shopping")} style={{color: "#1f5129",}}/>
                     </Button>
                 </Link>

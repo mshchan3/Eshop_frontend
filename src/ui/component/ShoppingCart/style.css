@@ -11,4 +11,5 @@
 
 .cart-items-header {
     display: flex;
+    justify-content: space-between;
 }

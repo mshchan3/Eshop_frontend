@@ -1,9 +1,10 @@
-import dunk from "../ProductCard/nike dunk low.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 import {Button, ButtonGroup, Container, Form} from "react-bootstrap";
 import React from "react";
 import {ProductData} from "../../../data/ProductData";
+import {CartItemApi} from "../../../api/CartItemApi";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
     productData: ProductData,
@@ -12,6 +13,7 @@ type Props = {
 }
 
 export default function ProductDetailContainer(props: Props) {
+    const natvigate = useNavigate();
     const addQuantity = () => {
         if (props.quantity + 1 <= props.productData.stock){
             props.setQuantity(props.quantity + 1)
@@ -24,11 +26,20 @@ export default function ProductDetailContainer(props: Props) {
         }
     }
 
+    const handleOnClick = async () => {
+        try {
+            let response = await CartItemApi.addCartItem(props.productData.pid.toString(), props.quantity.toString())
+        } catch (err){
+            natvigate("/login")
+        }
+    }
+
     return (
         <Container>
             <div className={"product-box"}>
                 <div className={"product-photo-box"}>
-                    <img className={"product-photo"} src={props.productData.image_url}/>
+                    <img className={"product-photo mt-5"}
+                         src={props.productData.image_url}/>
                 </div>
                 <div className={"product-detail-box"}>
                     <div className={"product-name"}>
@@ -43,7 +54,7 @@ export default function ProductDetailContainer(props: Props) {
                         <p>Only {props.productData?.stock} Left!</p>
                     </div>
                     <div className={"add-to-cart-box d-flex flex-column gap-4"}>
-                        <Form.Select>
+                        <Form.Select style={{borderRadius: 0}}>
                             <option>Size:</option>
                             <option>US 9</option>
                             <option>US 9.5</option>
@@ -53,12 +64,15 @@ export default function ProductDetailContainer(props: Props) {
                         </Form.Select>
                         <div className={"d-flex flex-row gap-4"}>
                             <ButtonGroup aria-label="Basic example">
-                                <Button style={{width: "64px", background: "darkgreen", border: 0}} onClick={addQuantity}> + </Button>
-                                <Button variant={"light"} disabled style={{width: "64px"}}>{props.quantity}</Button>
-                                <Button style={{width: "64px", background: "darkgreen", border: 0}} onClick={deductQuantity}> - </Button>
+                                <Button style={{width: "64px", background: "darkgreen",border: "darkgreen", borderRadius: 0 }}
+                                        onClick={addQuantity}> + </Button>
+                                <Button variant={"light"} disabled
+                                        style={{width: "64px"}}>{props.quantity}</Button>
+                                <Button style={{width: "64px", background: "darkgreen", border: "darkgreen", borderRadius: 0}}
+                                        onClick={deductQuantity}> - </Button>
                             </ButtonGroup>
-                            <Button style={{width: "256px", background: "darkgreen", border: 0}}>Add To
-                                Cart</Button>
+                            <Button style={{width: "256px", background: "darkgreen", border: "darkgreen", borderRadius: 0}}
+                                    onClick={handleOnClick}>Add To Cart</Button>
                         </div>
                     </div>
                     <div className={"product-description"}>

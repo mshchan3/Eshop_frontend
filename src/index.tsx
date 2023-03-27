@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FirebaseAuthService from "./authService/FirebaseAuthService";
 
 
+
 FirebaseAuthService.serviceInit();
 
 const root = ReactDOM.createRoot(

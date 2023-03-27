@@ -42,21 +42,28 @@ export default function LoginPage() {
     return (
         <div>
             <TopNavBar/>
-            <Container className={"d-flex justify-content-center"}>
-                <Card style={{width: "400px"}}>
-                    <Card.Header className={"d-flex justify-content-center bg-white"}>
-                        Log In
+            <Container className={"d-flex justify-content-center align-items-center"} style={{height: "70vh"}}>
+                <Card style={{width: "400px", borderRadius: 0}}>
+                    <Card.Header className={"d-flex justify-content-center bg-white p-3"}>
+                        <h5 style={{marginBottom: 0, textDecorationLine: "underline"}}>Log In</h5>
                     </Card.Header>
                     <Card.Body>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className={"mb-3 form-floating"} controlId="formBasicEmail">
-                                <Form.Control type="email" placeholder="Email Address"
-                                              onChange={handleEmailChange} value={email}/>
+                                <Form.Control type="email"
+                                              placeholder="Email Address"
+                                              onChange={handleEmailChange}
+                                              value={email}
+                                              style={{borderRadius: 0}}/>
                                 <Form.Label>Email address</Form.Label>
                             </Form.Group>
                             <Form.Group className={"mb-3 form-floating"} controlId="formBasicPassword">
-                                <Form.Control type="password" placeholder="Password"
-                                              onChange={handlePasswordChange} value={password}/>
+                                <Form.Control type="password"
+                                              placeholder="Password"
+                                              onChange={handlePasswordChange}
+                                              value={password}
+                                              style={{borderRadius: 0}}
+                                />
                                 <Form.Label>Password</Form.Label>
                             </Form.Group>
                             {
@@ -65,13 +72,13 @@ export default function LoginPage() {
                                     Login Failed! Please check your email and password!
                                 </FormText>
                             }
-                            <Button variant="dark" type="submit" style={{width: "100%", padding: "3%"}}>
+                            <Button variant="dark" type="submit" style={{width: "100%", padding: "3%", border: "black 1px solid" ,borderRadius: 0}}>
                                 Log In
                             </Button>
                             <p style={{fontSize: "x-small", marginTop: "4px", textAlign: "center"}}>By logging in, you agree to the Terms of Service and
                                 Privacy Policy</p>
-                            <GoogleLoginButton onClick={handleGoogleLogin} style={{paddingLeft: "20%"}}/>
-                            <FacebookLoginButton onClick={() => alert("Hello")} style={{paddingLeft: "17.5%"}} />
+                            <GoogleLoginButton onClick={handleGoogleLogin} style={{paddingLeft: "20%", borderRadius: 0, marginTop: "12px"}}/>
+                            <FacebookLoginButton onClick={() => alert("Hello")} style={{paddingLeft: "17.5%", borderRadius: 0, marginTop: "12px"}} />
                         </Form>
                     </Card.Body>
                 </Card>

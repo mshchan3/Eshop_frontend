@@ -1,33 +1,72 @@
 import TopNavBar from "../../component/TopNavBar";
 import {Container} from "react-bootstrap";
 import ShoppingCart from "../../component/ShoppingCart";
-import {useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {CartItemData} from "../../../data/CartItemData";
 import {CartItemApi} from "../../../api/CartItemApi";
 import {useNavigate} from "react-router-dom";
 
-export default function ShoppingCartPage(){
+
+
+type CartItemContext = {
+    updateCart: (cartItem: CartItemData) => void,
+    deleteCart: (cartItemPid: number) => void
+}
+export const CartContext = createContext<CartItemContext | undefined>(undefined);
+export default function ShoppingCartPage() {
     const [cartItemList, setCartItemList] = useState<CartItemData[] | null | undefined>(undefined)
-    const natvigate = useNavigate()
+    const natvigate = useNavigate();
     const updateCartItemList = async () => {
         try {
             const response = await CartItemApi.getAllCartItem()
-            console.log(response)
-        } catch (err){
+            setCartItemList(response)
+        } catch (err) {
             natvigate("/login")
         }
     }
 
+    let updateCartItemListAfterPatch =
+        {
+            updateCart: (cartItemData: CartItemData) => {
+                let updatedCartItemList = cartItemList?.map((cartItem) => {
+                    if (cartItem.pid === cartItemData.pid) {
+                        cartItem = cartItemData;
+                    }
+                    return cartItem;
+                })
+                if (updatedCartItemList) {
+                    setCartItemList(updatedCartItemList)
+                }
+            },
+
+            deleteCart: (cartItemPid: number) => {
+                let updatedCartItemList = cartItemList?.filter((value) => {
+                    console.log(value.pid,cartItemPid)
+                    return value.pid !== cartItemPid
+                })
+                if (updatedCartItemList){
+                    setCartItemList(updatedCartItemList)
+                    console.log(updatedCartItemList)
+                }
+            }
+        }
+
+
+
+
     useEffect(() => {
         updateCartItemList();
-    },[])
+        console.log("called api")
+    }, [])
 
-    return(
-        <div>
-            <TopNavBar/>
-            <Container>
-                <ShoppingCart/>
-            </Container>
-        </div>
+    return (
+        <CartContext.Provider value={updateCartItemListAfterPatch}>
+            <div>
+                <TopNavBar/>
+                <Container>
+                    <ShoppingCart cartItemList={cartItemList}/>
+                </Container>
+            </div>
+        </CartContext.Provider>
     )
 }

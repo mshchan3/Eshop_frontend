@@ -5,7 +5,6 @@ import {ProductApi} from "../../../api/ProductApi";
 import './style.css'
 import {ProductDataHasStock} from "../../../data/ProductDataHasStock";
 import {useParams} from "react-router-dom";
-import {all} from "axios";
 
 type Params = {
     productName: string,
