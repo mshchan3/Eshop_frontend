@@ -2,18 +2,19 @@ import FirebaseAuthService from "../authService/FirebaseAuthService";
 import axios from "axios";
 import {CartItemData} from "../data/CartItemData";
 import {CartItemStatusData} from "../data/CartItemStatusData";
+import {TransactionData} from "../data/TransactionData";
 
-export namespace CartItemApi {
+export namespace TransactionApi {
     const baseUrl = "http://localhost:8080"
 
-    export async function getAllCartItem() {
+    export async function createTransaction() {
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();
             if (!accessToken) {
-                throw new Error("Have not Logged In");
+                throw new Error();
             }
             const config = {headers: {Authorization: `Bearer ${accessToken}`}}
-            const response = await axios.get<CartItemData[]>(`${baseUrl}/cart`, config);
+            const response = await axios.post<TransactionData>(`${baseUrl}/transaction/prepare`, {}, config);
             return response.data
 
         } catch (error) {
@@ -21,43 +22,44 @@ export namespace CartItemApi {
         }
     }
 
-    export async function addCartItem(pid: string, quantity: string) {
+    export async function getTransactionById(tid:number) {
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();
             if (!accessToken) {
-                throw new Error("Have not Logged In");
+                throw new Error();
             }
             const config = {headers: {Authorization: `Bearer ${accessToken}`}}
-            const response = await axios.put<CartItemStatusData>(`${baseUrl}/cart/${pid}/${quantity}`, {}, config);
+            const response = await axios.get<TransactionData>(`${baseUrl}/transaction/${tid}`, config);
             return response.data
         } catch (error) {
             throw error
         }
     }
 
-    export async function updateCartItem(pid: string, quantity: string) {
+    export async function payTransaction(tid: number) {
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();
             if (!accessToken) {
-                throw new Error("Have not Logged In");
+                throw new Error();
             }
             const config = {headers: {Authorization: `Bearer ${accessToken}`}}
-            const response = await axios.patch<CartItemData>(`${baseUrl}/cart/${pid}/${quantity}`, {}, config);
+            const response = await axios.patch<TransactionData>(`${baseUrl}/transaction/${tid}/pay`, {}, config);
             return response.data
+
         } catch (error) {
             throw error
         }
     }
-
-    export async function deleteCartItem(pid: string) {
+    export async function finishTransaction(tid:number) {
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();
             if (!accessToken) {
-                throw new Error("Have not Logged In");
+                throw new Error();
             }
             const config = {headers: {Authorization: `Bearer ${accessToken}`}}
-            const response = await axios.delete<CartItemData>(`${baseUrl}/cart/${pid}`, config);
+            const response = await axios.patch<TransactionData>(`${baseUrl}/transaction/${tid}/finish`, {}, config);
             return response.data
+
         } catch (error) {
             throw error
         }

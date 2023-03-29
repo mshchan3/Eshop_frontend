@@ -1,10 +1,10 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
-import {Button, ButtonGroup, Container, Form} from "react-bootstrap";
-import React from "react";
+import {Button, ButtonGroup, Container, Form, Modal} from "react-bootstrap";
+import React, {useState} from "react";
 import {ProductData} from "../../../data/ProductData";
 import {CartItemApi} from "../../../api/CartItemApi";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 type Props = {
     productData: ProductData,
@@ -29,16 +29,42 @@ export default function ProductDetailContainer(props: Props) {
     const handleOnClick = async () => {
         try {
             let response = await CartItemApi.addCartItem(props.productData.pid.toString(), props.quantity.toString())
+            if (response){
+                handleShow();
+            }
         } catch (err){
             natvigate("/login")
         }
+    }
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const renderAddedToCartModal = () => {
+        return (
+            <>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Added to Cart Successfully!</Modal.Title>
+                    </Modal.Header>
+                    <Link to={"/"} style={{color: "black"}}>
+                        <Modal.Body>Continue Shopping</Modal.Body>
+                    </Link>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose} style={{color: "white", backgroundColor: "darkgreen"}}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+        );
     }
 
     return (
         <Container>
             <div className={"product-box"}>
                 <div className={"product-photo-box"}>
-                    <img className={"product-photo mt-5"}
+                    <img className={"product-photo"}
                          src={props.productData.image_url}/>
                 </div>
                 <div className={"product-detail-box"}>
@@ -73,6 +99,7 @@ export default function ProductDetailContainer(props: Props) {
                             </ButtonGroup>
                             <Button style={{width: "256px", background: "darkgreen", border: "darkgreen", borderRadius: 0}}
                                     onClick={handleOnClick}>Add To Cart</Button>
+                            {renderAddedToCartModal()}
                         </div>
                     </div>
                     <div className={"product-description"}>

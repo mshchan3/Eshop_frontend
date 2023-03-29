@@ -1,10 +1,11 @@
 import TopNavBar from "../../component/TopNavBar";
 import ProductCardGroup from "../../component/ProductCardGroup";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ProductApi} from "../../../api/ProductApi";
 import './style.css'
 import {ProductDataHasStock} from "../../../data/ProductDataHasStock";
 import {useParams} from "react-router-dom";
+import Footer from "../../component/Footer";
 
 type Params = {
     productName: string,
@@ -39,6 +40,14 @@ export default function SearchCategoryListingPage() {
 
     return(<div>
         <TopNavBar/>
+        <nav aria-label="breadcrumb" style={{marginTop: "12px", marginLeft: "36px"}}>
+            <ol className="breadcrumb">
+                <li className="breadcrumb-item"><a style={{color: "darkgreen"}} href="/">Home</a></li>
+                <li className="breadcrumb-item"><a style={{color: "darkgreen"}} href="/#/product">Product</a></li>
+                <li className="breadcrumb-item active">{searchCategory}</li>
+            </ol>
+        </nav>
         <ProductCardGroup productDataList={productDataList} searchProductName={""} searchCategory={searchCategory}/>
+        <Footer/>
     </div>)
 }

@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import FirebaseAuthService from "../../../authService/FirebaseAuthService";
 import {useNavigate} from "react-router-dom";
 import {FacebookLoginButton, GoogleLoginButton} from "react-social-login-buttons";
+import Footer from "../../component/Footer";
 
 export default function LoginPage() {
     const natvigate = useNavigate();
@@ -83,6 +84,7 @@ export default function LoginPage() {
                     </Card.Body>
                 </Card>
             </Container>
+            <Footer/>
         </div>
     );
 }

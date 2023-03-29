@@ -5,6 +5,7 @@ import {ProductApi} from "../../../api/ProductApi";
 import './style.css'
 import {ProductDataHasStock} from "../../../data/ProductDataHasStock";
 import {useParams} from "react-router-dom";
+import Footer from "../../component/Footer";
 
 type Params = {
     productName: string,
@@ -40,5 +41,6 @@ export default function SearchListingPage() {
     return(<div>
         <TopNavBar/>
         <ProductCardGroup productDataList={productDataList} searchProductName={searchProductName} searchCategory={undefined}/>
+        <Footer/>
     </div>)
 }

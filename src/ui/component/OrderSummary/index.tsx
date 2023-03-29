@@ -1,10 +1,14 @@
 import {Button, Form, InputGroup} from "react-bootstrap";
 import {CartItemData} from "../../../data/CartItemData";
+import {TransactionApi} from "../../../api/TransactionApi";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
-    cartItemList: CartItemData[] | null | undefined;
+    cartItemList: CartItemData[] | undefined;
 }
 export default function OrderSummary(props: Props) {
+    const natvigate = useNavigate();
+
     const getTotalQuantity = () => {
         let totalQuantity: number = 0;
         props.cartItemList?.map((value) => {
@@ -19,6 +23,28 @@ export default function OrderSummary(props: Props) {
             totalPrice += (value.cart_quantity * value.price)
         })
         return totalPrice;
+    }
+
+    const handleCheckoutOnClick = async () => {
+        let response = await TransactionApi.createTransaction();
+        natvigate("/checkout", {state: response.tid})
+        console.log(response)
+    }
+
+    const renderCheckoutButton = () => {
+        if (props.cartItemList !== undefined && props.cartItemList?.length > 0) {
+            return (
+                <Button variant="outline-dark" style={{borderRadius: 0, width: "100%"}} onClick={handleCheckoutOnClick}>
+                    CHECKOUT
+                </Button>
+            )
+        } else {
+            return (
+                <Button disabled variant="outline-dark" style={{borderRadius: 0, width: "100%"}} onClick={handleCheckoutOnClick}>
+                    CHECKOUT
+                </Button>
+            )
+        }
     }
 
     return (
@@ -62,9 +88,9 @@ export default function OrderSummary(props: Props) {
                 </div>
             </div>
             <div className="check-out-button mt-3 mb-3">
-                <Button variant="outline-dark" style={{borderRadius: 0, width: "100%"}}>
-                    MEMBER CHECKOUT
-                </Button>
+                {
+                    renderCheckoutButton()
+                }
             </div>
             <div className="disclaimer-box">
                 <h6>Disclaimer</h6>

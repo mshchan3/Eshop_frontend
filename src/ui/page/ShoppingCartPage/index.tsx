@@ -5,6 +5,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {CartItemData} from "../../../data/CartItemData";
 import {CartItemApi} from "../../../api/CartItemApi";
 import {useNavigate} from "react-router-dom";
+import Footer from "../../component/Footer";
 
 
 
@@ -13,8 +14,9 @@ type CartItemContext = {
     deleteCart: (cartItemPid: number) => void
 }
 export const CartContext = createContext<CartItemContext | undefined>(undefined);
+
 export default function ShoppingCartPage() {
-    const [cartItemList, setCartItemList] = useState<CartItemData[] | null | undefined>(undefined)
+    const [cartItemList, setCartItemList] = useState<CartItemData[] | undefined>(undefined)
     const natvigate = useNavigate();
     const updateCartItemList = async () => {
         try {
@@ -56,7 +58,6 @@ export default function ShoppingCartPage() {
 
     useEffect(() => {
         updateCartItemList();
-        console.log("called api")
     }, [])
 
     return (
@@ -66,6 +67,7 @@ export default function ShoppingCartPage() {
                 <Container>
                     <ShoppingCart cartItemList={cartItemList}/>
                 </Container>
+                <Footer/>
             </div>
         </CartContext.Provider>
     )

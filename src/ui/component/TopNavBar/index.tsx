@@ -64,7 +64,7 @@ export default function TopNavBar() {
                             {/*    Separated link*/}
                             {/*</NavDropdown.Item>*/}
                         </NavDropdown>
-                        <Nav.Link href="#link">About Us</Nav.Link>
+                        <Nav.Link href="/#/product">Product</Nav.Link>
                         <Nav.Link href="">News</Nav.Link>
                         <Nav.Link href="">Help</Nav.Link>
                         <Form className="d-flex" style={{width: "30vw"}}

@@ -16,8 +16,10 @@ export default function ShoppingCartItems(props: Props) {
     const updateCart = useContext(CartContext)
     const updateCartItemQuantity = async (quantity: number) => {
         let response = await CartItemApi.updateCartItem(props.cartItem.pid.toString(), quantity.toString())
-        if (updateCart && response){
+        if (updateCart && response && quantity > 0){
             updateCart.updateCart(response)
+        } else if (updateCart && response && quantity === 0) {
+            updateCart.deleteCart(props.cartItem.pid)
         }
     }
 
@@ -30,7 +32,6 @@ export default function ShoppingCartItems(props: Props) {
 
     return (
         <tr>
-            <td>1</td>
             <td className="d-flex gap-4" style={{width: "100%"}}>
                 <div className="d-flex justify-content-center align-items-center">
                     <Link to={`/product/${props.cartItem.pid}`}>
