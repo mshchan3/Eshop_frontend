@@ -50,7 +50,7 @@ export namespace TransactionApi {
             throw error
         }
     }
-    export async function finishTransaction(tid:number) {
+    export async function finishTransaction(tid:string) {
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();
             if (!accessToken) {
@@ -58,6 +58,21 @@ export namespace TransactionApi {
             }
             const config = {headers: {Authorization: `Bearer ${accessToken}`}}
             const response = await axios.patch<TransactionData>(`${baseUrl}/transaction/${tid}/finish`, {}, config);
+            return response.data
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    export async function getAllTransaction() {
+        try {
+            const accessToken = await FirebaseAuthService.getAccessToken();
+            if (!accessToken) {
+                throw new Error();
+            }
+            const config = {headers: {Authorization: `Bearer ${accessToken}`}}
+            const response = await axios.get<TransactionData[]>(`${baseUrl}/transaction/get-all`, config);
             return response.data
 
         } catch (error) {

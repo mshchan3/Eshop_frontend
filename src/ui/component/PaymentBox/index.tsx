@@ -1,6 +1,7 @@
 import {Button, FloatingLabel, Form, FormControl} from "react-bootstrap";
 import {TransactionApi} from "../../../api/TransactionApi";
 import {useNavigate} from "react-router-dom";
+import {CheckOutApi} from "../../../api/CheckOutApi";
 
 type Props = {
     tid: number | undefined
@@ -9,16 +10,24 @@ type Props = {
 export default function PaymentBox(props: Props) {
     const natvigate = useNavigate();
 
+    // const handleOnclickPay = async () => {
+    //     if (props.tid) {
+    //         let response = await TransactionApi.payTransaction(props.tid)
+    //         console.log(response)
+    //         if (response) {
+    //             let finishResponse = await TransactionApi.finishTransaction(props.tid)
+    //             console.log(finishResponse)
+    //             if(finishResponse) {
+    //                 natvigate("/checkout/success")
+    //             }
+    //         }
+    //     }
+    // }
     const handleOnclickPay = async () => {
         if (props.tid) {
-            let response = await TransactionApi.payTransaction(props.tid)
-            console.log(response)
-            if (response) {
-                response = await TransactionApi.finishTransaction(props.tid)
-                console.log(response)
-                if(response) {
-                    natvigate("/checkout/success")
-                }
+            if (await TransactionApi.payTransaction(props.tid)) {
+                let response = await CheckOutApi.checkOut(props.tid)
+                window.location.replace(response)
             }
         }
     }

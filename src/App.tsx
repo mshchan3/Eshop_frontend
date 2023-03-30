@@ -15,6 +15,8 @@ import ShoppingCartPage from "./ui/page/ShoppingCartPage";
 import CheckOutPage from "./ui/page/CheckOutPage";
 import ProductListingPage from "./ui/page/ProductListingPage";
 import PaymentSuccessPage from "./ui/page/PaymentSuccessPage";
+import PaymentCancelledPage from "./ui/page/PaymentCancelledPage";
+import UserTransactionPage from "./ui/page/UserTransactionPage";
 
 export const userContext = createContext<UserData | null | undefined>(undefined);
 
@@ -43,6 +45,8 @@ function App() {
                                 <Route path='*' element={<Navigate to="/error"/>}/>
                                 <Route path='/error' element={<ErrorPage/>}/>
                                 <Route path="/checkout/success" element={<PaymentSuccessPage/>}/>
+                                <Route path="/checkout/cancelled" element={<PaymentCancelledPage/>}/>
+                                <Route path="/transaction-record" element={<UserTransactionPage/>}/>
                             </Routes>
                         </HashRouter>
                     </div>

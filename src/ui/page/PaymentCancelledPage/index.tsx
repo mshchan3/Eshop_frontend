@@ -1,25 +1,9 @@
 import {Button, Card} from "react-bootstrap";
 import TopNavBar from "../../component/TopNavBar";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {useEffect} from "react";
-import {TransactionApi} from "../../../api/TransactionApi";
+import {useNavigate} from "react-router-dom";
 
-export default function PaymentSuccessPage() {
+export default function PaymentCancelledPage() {
     const natvigate = useNavigate();
-    const [searchParam, setSearchParam] = useSearchParams()
-
-    const finishTransaction = async () => {
-        let tid = searchParam.get("tid")
-        if (tid) {
-           let response = await TransactionApi.finishTransaction(tid)
-            console.log(response)
-        }
-    }
-
-    useEffect(() => {
-        finishTransaction();
-        console.log(123)
-    },[])
 
     return (
         <div>
@@ -33,9 +17,10 @@ export default function PaymentSuccessPage() {
         }}>
             <Card className="shadow" style={{width: "400px", height: "450px", padding: "24px"}}>
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                    <h2 style={{color: "#21BE54"}}>Payment Successful!!</h2>
-                    <Card.Img src={"https://live.staticflickr.com/65535/52777084210_c52ba57a6a_o.png"}
-                              style={{height: "96px", width: "96px"}}/>
+                    <h2 style={{color: "red"}}>Payment Cancelled!</h2>
+                    <h2 style={{color: "red"}}>Please try again</h2>
+                    {/*<Card.Img src={"https://live.staticflickr.com/65535/52777084210_c52ba57a6a_o.png"}*/}
+                    {/*          style={{height: "96px", width: "96px"}}/>*/}
                 </div>
                 <div style={{display: "flex", flexDirection: "column"}}>
                     <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -60,8 +45,8 @@ export default function PaymentSuccessPage() {
                     </div>
                 </div>
                 <Button style={{backgroundColor: "darkgreen", border: "darkgreen"}}
-                        onClick={() => {natvigate("/")}
-                }>Back to Home</Button>
+                        onClick={() => {natvigate(-1)}
+                }>TRY AGAIN</Button>
             </Card>
         </div>
         </div>

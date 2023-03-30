@@ -30,16 +30,18 @@ export default function TopNavBar() {
     const renderLoginPannel = () => {
         if (user) {
             return (<div>
-                    <p>{user.email}</p>
-                    <Button variant={"outline-success"}
-                            onClick={FirebaseAuthService.handleSignOut}
-                            style={{borderRadius: 0}}>Logout</Button>
+                    <Link to="/transaction-record">
+                        <p>{user.email}</p>
+                        <Button variant={"outline-success"}
+                                onClick={FirebaseAuthService.handleSignOut}
+                                style={{borderRadius: 0}}>Logout</Button>
+                    </Link>
                 </div>
             )
         } else {
             return (
                 <Link to="/login">
-                    <Button variant={"outline-success"} style={{ borderRadius: 0}}>Login</Button>
+                    <Button variant={"outline-success"} style={{borderRadius: 0}}>Login</Button>
                 </Link>
             )
         }
@@ -50,7 +52,8 @@ export default function TopNavBar() {
         <Navbar bg="white" expand="lg" id={"navbar-box"} sticky="top">
             <Container>
                 <a href={"http://localhost:3000/"}><img
-                    src="https://live.staticflickr.com/65535/52763649100_2c6c38fa2b_b.jpg" id={"logo"}/></a>
+                    src="http://media-s3-us-east-1.ceros.com/hype-beast/images/2017/02/15/4acf1d42699e3a5fd757705095f48a4c/nike-sb-heinekin.png"
+                    id={"logo"}/></a>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -65,8 +68,6 @@ export default function TopNavBar() {
                             {/*</NavDropdown.Item>*/}
                         </NavDropdown>
                         <Nav.Link href="/#/product">Product</Nav.Link>
-                        <Nav.Link href="">News</Nav.Link>
-                        <Nav.Link href="">Help</Nav.Link>
                         <Form className="d-flex" style={{width: "30vw"}}
                               onSubmit={(event) => {
                                   handleSubmit(event)
