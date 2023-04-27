@@ -65,9 +65,11 @@ namespace FirebaseAuthService {
 
     export const getAccessToken = (): Promise<string> | null => {
         const currentUser = getAuth().currentUser;
+        console.log(currentUser)
         if (!currentUser) {
             return null;
         }
+        console.log(currentUser.getIdToken(false))
         return currentUser.getIdToken(false);
     }
 

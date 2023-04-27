@@ -10,6 +10,8 @@ import FirebaseAuthService from "./authService/FirebaseAuthService";
 
 FirebaseAuthService.serviceInit();
 
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

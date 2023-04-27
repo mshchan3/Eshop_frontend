@@ -3,9 +3,10 @@ import axios from "axios";
 import {CartItemData} from "../data/CartItemData";
 import {CartItemStatusData} from "../data/CartItemStatusData";
 import {TransactionData} from "../data/TransactionData";
+import getEnvConfig from "../config/Config";
 
 export namespace TransactionApi {
-    const baseUrl = "http://localhost:8080"
+    const baseUrl = getEnvConfig().baseUrl
 
     export async function createTransaction() {
         try {

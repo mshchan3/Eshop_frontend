@@ -25,6 +25,7 @@ function App() {
 
     useEffect(() => {
         FirebaseAuthService.handleOnAuthStateChanged(setUser);
+        document.title = "StockX"
     }, [])
 
     const renderApp = () => {

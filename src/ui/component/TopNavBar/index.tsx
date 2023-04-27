@@ -27,13 +27,18 @@ export default function TopNavBar() {
         navigate(`/search-category/${selectedKey}`)
     }
 
+    const handleLogout = async () => {
+        await FirebaseAuthService.handleSignOut();
+        navigate("/");
+    }
+
     const renderLoginPannel = () => {
         if (user) {
             return (<div>
                     <Link to="/transaction-record">
                         <p>{user.email}</p>
                         <Button variant={"outline-success"}
-                                onClick={FirebaseAuthService.handleSignOut}
+                                onClick={handleLogout}
                                 style={{borderRadius: 0}}>Logout</Button>
                     </Link>
                 </div>
@@ -51,7 +56,7 @@ export default function TopNavBar() {
     return (
         <Navbar bg="white" expand="lg" id={"navbar-box"} sticky="top">
             <Container>
-                <a href={"http://localhost:3000/"}><img
+                <a href={"/"}><img
                     src="http://media-s3-us-east-1.ceros.com/hype-beast/images/2017/02/15/4acf1d42699e3a5fd757705095f48a4c/nike-sb-heinekin.png"
                     id={"logo"}/></a>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>

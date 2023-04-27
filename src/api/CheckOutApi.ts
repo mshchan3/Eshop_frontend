@@ -1,9 +1,10 @@
 import FirebaseAuthService from "../authService/FirebaseAuthService";
 import axios from "axios";
 import {TransactionData} from "../data/TransactionData";
+import getEnvConfig from "../config/Config";
 
 export namespace CheckOutApi {
-    const baseUrl = "http://localhost:8080"
+    const baseUrl = getEnvConfig().baseUrl
     export async function checkOut(tid:number){
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();

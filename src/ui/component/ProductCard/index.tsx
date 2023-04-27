@@ -9,7 +9,7 @@ type Props = {
 export default function ProductCard(props:Props) {
     return (
         <Card>
-            <a href={`http://localhost:3000/#/product/${props.productData.pid}`}><Card.Img variant="top" src={props.productData.image_url}/></a>
+            <a href={`/#/product/${props.productData.pid}`}><Card.Img variant="top" src={props.productData.image_url}/></a>
                 <Card.Body >
                     <Card.Title>{props.productData.name}</Card.Title>
                     <Card.Text className={"card-price-tag"}>Price</Card.Text>
