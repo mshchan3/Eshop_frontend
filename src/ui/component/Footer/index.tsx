@@ -11,7 +11,6 @@ export default function Footer() {
             <div style={{backgroundColor: "darkgreen", color: "white", display: "flex", alignItems: "center", justifyContent: "center",
             padding: "24px"}}>
                 <h3 style={{marginBottom: 0}}>Join StockX to receive 10% off welcome offer & unlock more rewards!</h3>
-                <h3 style={{marginBottom: 0}}><br>Fuck World</br></h3>
             </div>
             <div style={{backgroundColor: "black", color: "white", padding: "24px 0"}}>
                 <Container>
